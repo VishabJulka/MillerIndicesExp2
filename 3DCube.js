@@ -1,5 +1,5 @@
 window.onload = function () {
-    //access canvas and its context
+    
     var canvas = document.getElementById("myCanvas");
     var ctx = canvas.getContext("2d");
     var count = 0;
@@ -10,7 +10,7 @@ window.onload = function () {
     ctx.fillStyle = 'rgba(0,0,0,1)';
     ctx.strokeStyle = 'rgba(0,153,255,1)';
 
-    //set initial angles for cubes position
+    
     var Qx = Math.PI / 4;
     var Qy = Math.PI / 3;
     var Qz = Math.PI / 4;
@@ -18,151 +18,147 @@ window.onload = function () {
     var dy = 0;
     var dz = 0;
 
-    //length of the cube edges
+    
     var SIZE = 75;
-    //length of the axis
+    
     var AXIS = 150;
-    //array that will hold all the cube vertices
+    
     var vertices = [];
 
    
     
-    //utility function
+
     function addPoint(x, y, z) {
         return [x, y, z]
     }
 
-    //create the vertices of the cube and put them in their array
-    vertices.push(addPoint(SIZE, SIZE, SIZE));  //1
-    vertices.push(addPoint(-SIZE, SIZE, SIZE)); //2
-    vertices.push(addPoint(-SIZE, -SIZE, SIZE)); //3
-    vertices.push(addPoint(SIZE, -SIZE, SIZE));  //4
+    
+    vertices.push(addPoint(SIZE, SIZE, SIZE));  
+    vertices.push(addPoint(-SIZE, SIZE, SIZE)); 
+    vertices.push(addPoint(-SIZE, -SIZE, SIZE)); 
+    vertices.push(addPoint(SIZE, -SIZE, SIZE));  
 
-    vertices.push(addPoint(SIZE, SIZE, SIZE)); //5 && //1
-    vertices.push(addPoint(SIZE, SIZE, -SIZE)); //6
-    vertices.push(addPoint(-SIZE, SIZE, -SIZE)); //7 
-    vertices.push(addPoint(-SIZE, -SIZE, -SIZE)); //8
-
-
-    vertices.push(addPoint(SIZE, -SIZE, -SIZE)); //9
-    vertices.push(addPoint(SIZE, SIZE, -SIZE)); //10 && //6
-    vertices.push(addPoint(SIZE, -SIZE, -SIZE)); //11 && //9
-    vertices.push(addPoint(SIZE, -SIZE, SIZE)); //12 && //4
-
-    vertices.push(addPoint(-SIZE, -SIZE, SIZE)); //13 && //3
-    vertices.push(addPoint(-SIZE, -SIZE, -SIZE)); //14 && //8
-    vertices.push(addPoint(-SIZE, SIZE, -SIZE)); //15  && //7
-    vertices.push(addPoint(-SIZE, SIZE, SIZE)); //16 && //2
+    vertices.push(addPoint(SIZE, SIZE, SIZE)); 
+    vertices.push(addPoint(SIZE, SIZE, -SIZE));
+    vertices.push(addPoint(-SIZE, SIZE, -SIZE)); 
+    vertices.push(addPoint(-SIZE, -SIZE, -SIZE));
 
 
-    //adding axis
-    vertices.push(addPoint(SIZE, SIZE, SIZE));//1                     //count - 17
-    vertices.push(addPoint(SIZE, SIZE, AXIS));//z axis                 //count -18
+    vertices.push(addPoint(SIZE, -SIZE, -SIZE)); 
+    vertices.push(addPoint(SIZE, SIZE, -SIZE)); 
+    vertices.push(addPoint(SIZE, -SIZE, -SIZE));
+    vertices.push(addPoint(SIZE, -SIZE, SIZE)); 
+
+    vertices.push(addPoint(-SIZE, -SIZE, SIZE)); 
+    vertices.push(addPoint(-SIZE, -SIZE, -SIZE));
+    vertices.push(addPoint(-SIZE, SIZE, -SIZE)); 
+    vertices.push(addPoint(-SIZE, SIZE, SIZE)); 
 
 
-    vertices.push(addPoint(SIZE, SIZE, SIZE));//1                     //count -19
-    vertices.push(addPoint(SIZE, SIZE, -SIZE)); //6                   //count -20
-    vertices.push(addPoint(SIZE, -SIZE, -SIZE)); //9                  //count -21
-    vertices.push(addPoint(SIZE, -AXIS, -SIZE)); //y axis              //count -22
-
-    vertices.push(addPoint(SIZE, -SIZE, -SIZE)); //9                  //count -23
-    vertices.push(addPoint(SIZE, SIZE, -SIZE)); //6                   //count -24
-    vertices.push(addPoint(-SIZE, SIZE, -SIZE)); //7                  //count -25
-    vertices.push(addPoint(-AXIS, SIZE, -SIZE)); //x axis             //count -26
+    
+    vertices.push(addPoint(SIZE, SIZE, SIZE));
+    vertices.push(addPoint(SIZE, SIZE, AXIS));
 
 
-    vertices.push(addPoint(-AXIS, SIZE, -60)); //x-top //X printed    //count -27
+    vertices.push(addPoint(SIZE, SIZE, SIZE));
+    vertices.push(addPoint(SIZE, SIZE, -SIZE));
+    vertices.push(addPoint(SIZE, -SIZE, -SIZE));
+    vertices.push(addPoint(SIZE, -AXIS, -SIZE)); 
 
-    vertices.push(addPoint(-AXIS, SIZE, -SIZE)); //x axis             //count -28
-    vertices.push(addPoint(-SIZE, SIZE, -SIZE)); //7                  //count -29
-    vertices.push(addPoint(SIZE, SIZE, -SIZE)); //6                   //count -30   
-    vertices.push(addPoint(SIZE, -SIZE, -SIZE)); //9                  //count -31
-    vertices.push(addPoint(SIZE, -AXIS, -SIZE)); //y axis             //count -32
-
-    vertices.push(addPoint(SIZE, -AXIS, -60)); //y-top //Y printed    //count -33
-
-    vertices.push(addPoint(SIZE, -AXIS, -SIZE)); //y axis             //count -34  
-    vertices.push(addPoint(SIZE, -SIZE, -SIZE)); //9                  //count -35
-    vertices.push(addPoint(SIZE, SIZE, -SIZE)); //6                   //count -36
-    vertices.push(addPoint(SIZE, SIZE, SIZE));//1                     //count -37
-    vertices.push(addPoint(SIZE, SIZE, AXIS));//z axis                //count -38
-
-    vertices.push(addPoint(SIZE, 35, AXIS));//z-top //Z printed       //count -39
-
-    //Trying to make shape 100
-    //Traverse to point 7
-    vertices.push(addPoint(SIZE, SIZE, AXIS));//z axis                //count -40
-    vertices.push(addPoint(SIZE, SIZE, SIZE));//1                     //count -41
-    vertices.push(addPoint(SIZE, SIZE, -SIZE)); //6                   //count -42
-
-    //starting of making 100
-    vertices.push(addPoint(-SIZE, SIZE, -SIZE)); //7                  //count -43
-    vertices.push(addPoint(-SIZE, -SIZE, -SIZE)); //8                 //count -44
-    vertices.push(addPoint(-SIZE, -SIZE, SIZE)); //3                  //count -45
-    vertices.push(addPoint(-SIZE, SIZE, SIZE)); //2                   //count -46
-    vertices.push(addPoint(-SIZE, SIZE, -SIZE)); //7                  //count -47
-
-    //Trying to make shape 110
-    //starting of making 110
-    vertices.push(addPoint(-SIZE, SIZE, -SIZE)); //7                  //count -48
-    vertices.push(addPoint(SIZE, -SIZE, -SIZE)); //9                  //count -49
-    vertices.push(addPoint(SIZE, -SIZE, SIZE));  //4                  //count -50
-    vertices.push(addPoint(-SIZE, SIZE, SIZE)); //2                   //count -51
-    vertices.push(addPoint(-SIZE, SIZE, -SIZE)); //7                  //count -52
-
-    //Trying to make shape 111
-    //starting of making 111
-    vertices.push(addPoint(-SIZE, SIZE, -SIZE)); //7                  //count -53
-    vertices.push(addPoint(SIZE, -SIZE, -SIZE)); //9                  //count -54
-    vertices.push(addPoint(SIZE, SIZE, SIZE));//1                     //count -55
-    vertices.push(addPoint(-SIZE, SIZE, -SIZE)); //7                  //count -56
-
-    //Trying to make the parallel side of 100
-    vertices.push(addPoint(-SIZE, SIZE, -SIZE)); //7                  //count -57
-
-    //starting of making 100 parallel side
-    vertices.push(addPoint(SIZE, SIZE, -SIZE)); //6                   //count -58
-    vertices.push(addPoint(SIZE, -SIZE, -SIZE)); //9                  //count -59
-    vertices.push(addPoint(SIZE, -SIZE, SIZE));  //4                  //count -60
-    vertices.push(addPoint(SIZE, SIZE, SIZE));  //1                   //count -61
-    vertices.push(addPoint(SIZE, SIZE, -SIZE)); //6                   //count -62
+    vertices.push(addPoint(SIZE, -SIZE, -SIZE)); 
+    vertices.push(addPoint(SIZE, SIZE, -SIZE)); 
+    vertices.push(addPoint(-SIZE, SIZE, -SIZE));
+    vertices.push(addPoint(-AXIS, SIZE, -SIZE));
 
 
-    //second side of 111 planes                 
-    vertices.push(addPoint(SIZE, SIZE, -SIZE)); //6                   //count -63 
-    vertices.push(addPoint(SIZE, SIZE, SIZE));  //1                   //count -64
+    vertices.push(addPoint(-AXIS, SIZE, -60)); 
+
+    vertices.push(addPoint(-AXIS, SIZE, -SIZE));
+    vertices.push(addPoint(-SIZE, SIZE, -SIZE));
+    vertices.push(addPoint(SIZE, SIZE, -SIZE));    
+    vertices.push(addPoint(SIZE, -SIZE, -SIZE));
+    vertices.push(addPoint(SIZE, -AXIS, -SIZE));
+
+    vertices.push(addPoint(SIZE, -AXIS, -60)); 
+
+    vertices.push(addPoint(SIZE, -AXIS, -SIZE));  
+    vertices.push(addPoint(SIZE, -SIZE, -SIZE));
+    vertices.push(addPoint(SIZE, SIZE, -SIZE)); 
+    vertices.push(addPoint(SIZE, SIZE, SIZE));
+    vertices.push(addPoint(SIZE, SIZE, AXIS));
+
+    vertices.push(addPoint(SIZE, 35, AXIS));
+
+    
+    
+    vertices.push(addPoint(SIZE, SIZE, AXIS));
+    vertices.push(addPoint(SIZE, SIZE, SIZE));
+    vertices.push(addPoint(SIZE, SIZE, -SIZE));
+
+    
+    vertices.push(addPoint(-SIZE, SIZE, -SIZE));
+    vertices.push(addPoint(-SIZE, -SIZE, -SIZE));
+    vertices.push(addPoint(-SIZE, -SIZE, SIZE)); 
+    vertices.push(addPoint(-SIZE, SIZE, SIZE)); 
+    vertices.push(addPoint(-SIZE, SIZE, -SIZE)); 
+
+    
+    vertices.push(addPoint(-SIZE, SIZE, -SIZE)); 
+    vertices.push(addPoint(SIZE, -SIZE, -SIZE)); 
+    vertices.push(addPoint(SIZE, -SIZE, SIZE));  
+    vertices.push(addPoint(-SIZE, SIZE, SIZE)); 
+    vertices.push(addPoint(-SIZE, SIZE, -SIZE)); 
 
 
-    vertices.push(addPoint(-SIZE, SIZE, SIZE)); //2                   //count -65
-    vertices.push(addPoint(SIZE, -SIZE, SIZE));  //4                  //count -66    
-    vertices.push(addPoint(-SIZE, -SIZE, -SIZE)); //8                 //count -67
-    vertices.push(addPoint(-SIZE, SIZE, SIZE)); //2                   //count -68
+    vertices.push(addPoint(-SIZE, SIZE, -SIZE));
+    vertices.push(addPoint(SIZE, -SIZE, -SIZE));
+    vertices.push(addPoint(SIZE, SIZE, SIZE));
+    vertices.push(addPoint(-SIZE, SIZE, -SIZE));
 
-    //Trying for 110 planes first side
+    
+    vertices.push(addPoint(-SIZE, SIZE, -SIZE)); 
 
-
-    //Reaching the edge
-    vertices.push(addPoint(-SIZE, SIZE, SIZE)); //2                   //count -69
-
-    //start making the side
-    vertices.push(addPoint(-SIZE, 0, SIZE)); //center of 2 and 3      //count -70
-    vertices.push(addPoint(0, -SIZE, SIZE)); //center of 3 and 4      //count -71
-    vertices.push(addPoint(0, -SIZE, -SIZE)); //center of 8 and 9     //count -72
-    vertices.push(addPoint(-SIZE, 0, -SIZE)); //center of 7 and 8     //count -73
-    vertices.push(addPoint(-SIZE, 0, SIZE)); //center of 2 and 3      //count -74
+    
+    vertices.push(addPoint(SIZE, SIZE, -SIZE));                    
+    vertices.push(addPoint(SIZE, -SIZE, -SIZE));                  
+    vertices.push(addPoint(SIZE, -SIZE, SIZE));                   
+    vertices.push(addPoint(SIZE, SIZE, SIZE));                     
+    vertices.push(addPoint(SIZE, SIZE, -SIZE));                    
 
 
-    //Trying for 110 planes second side
+    
+    vertices.push(addPoint(SIZE, SIZE, -SIZE));                    
+    vertices.push(addPoint(SIZE, SIZE, SIZE));                    
 
-    //Reaching the edge
-    vertices.push(addPoint(-SIZE, SIZE, SIZE)); //2                   //count -75
 
-    //start making the side
-    vertices.push(addPoint(0, SIZE, SIZE));  //center of 1 and 2      //count -76
-    vertices.push(addPoint(0, SIZE, -SIZE)); //center of 7 and 6      //count -77
-    vertices.push(addPoint(SIZE, 0, -SIZE)); //center of 6 and 9      //count -78
-    vertices.push(addPoint(SIZE, 0, SIZE));  //center of 1 and 4      //count -79
-    vertices.push(addPoint(0, SIZE, SIZE));  //center of 1 and 2      //count -80
+    vertices.push(addPoint(-SIZE, SIZE, SIZE));                   
+    vertices.push(addPoint(SIZE, -SIZE, SIZE));                      
+    vertices.push(addPoint(-SIZE, -SIZE, -SIZE));                 
+    vertices.push(addPoint(-SIZE, SIZE, SIZE));                    
+
+
+
+    
+    vertices.push(addPoint(-SIZE, SIZE, SIZE));                   
+
+    
+    vertices.push(addPoint(-SIZE, 0, SIZE));       
+    vertices.push(addPoint(0, -SIZE, SIZE));       
+    vertices.push(addPoint(0, -SIZE, -SIZE));     
+    vertices.push(addPoint(-SIZE, 0, -SIZE));      
+    vertices.push(addPoint(-SIZE, 0, SIZE));       
+
+
+
+    
+    vertices.push(addPoint(-SIZE, SIZE, SIZE));                    
+
+    
+    vertices.push(addPoint(0, SIZE, SIZE));        
+    vertices.push(addPoint(0, SIZE, -SIZE));     
+    vertices.push(addPoint(SIZE, 0, -SIZE));       
+    vertices.push(addPoint(SIZE, 0, SIZE));        
+    vertices.push(addPoint(0, SIZE, SIZE));       
 
 
 
@@ -171,33 +167,25 @@ window.onload = function () {
 
 
 
-    //Trying the body center
 
-    vertices.push(addPoint(0, 0, 0)); //center point of bcc           //count -75  //81
+    vertices.push(addPoint(0, 0, 0));        
 
-    //for side 100 making the center parallel for body centered
-
-    vertices.push(addPoint(0, SIZE, -SIZE)); //center of 7 and 6      //count -76  //82
-    vertices.push(addPoint(0, -SIZE, -SIZE)); //center of 8 and 9     //count -77  //83
-    vertices.push(addPoint(0, -SIZE, SIZE)); //center of 3 and 4      //count -78  //84
-    vertices.push(addPoint(0, SIZE, SIZE));  //center of 1 and 2      //count -79  //85
-    vertices.push(addPoint(0, SIZE, -SIZE)); //center of 7 and 6      //count -80  //86
+    
+    vertices.push(addPoint(0, SIZE, -SIZE));       
+    vertices.push(addPoint(0, -SIZE, -SIZE));      
+    vertices.push(addPoint(0, -SIZE, SIZE));       
+    vertices.push(addPoint(0, SIZE, SIZE));        
+    vertices.push(addPoint(0, SIZE, -SIZE));       
 
 
 
 
-
-
-    //Trying to make face centered
-
-    //First lets try to make the center edges of each cube side
-
-    vertices.push(addPoint(0, -SIZE, 0)); //center of side 8,9,4,3    //count -81  //87
-    vertices.push(addPoint(-SIZE, 0, 0)); //center of side 7,8,3,2    //count -82  //88
-    vertices.push(addPoint(0, 0, SIZE));  //center of side 1,2,3,4    //count -83  //89
-    vertices.push(addPoint(0, SIZE, 0)); //center of side 7,2,1,6     //count -84  //90
-    vertices.push(addPoint(SIZE, 0, 0)); //center of side 1,6,9,4     //count -85  //91
-    vertices.push(addPoint(0, 0, -SIZE)); //center of side 8,7,6,9    //count -86  //92
+    vertices.push(addPoint(0, -SIZE, 0)); 4,3    
+    vertices.push(addPoint(-SIZE, 0, 0)); 3,2    
+    vertices.push(addPoint(0, 0, SIZE));  3,4    
+    vertices.push(addPoint(0, SIZE, 0)); 1,6     
+    vertices.push(addPoint(SIZE, 0, 0)); 9,4     
+    vertices.push(addPoint(0, 0, -SIZE)); 6,9    
 
 
 
